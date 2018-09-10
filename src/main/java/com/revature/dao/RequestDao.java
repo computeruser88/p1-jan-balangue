@@ -11,7 +11,6 @@ public interface RequestDao {
 	public List<Request> getPendingRequestsByEmployeeId(int employeeId);
 	public List<Request> getResolvedRequestsByEmployeeId(int employeeId);
 	public int createRequest(Request request);
-	public int updateRequest(Request request);
-	public int approveRequest(Request request);
-	public int denyRequest(Request request);
+	public int approveRequest(Request request, int employeeId);
+	public int denyRequest(Request request, int employeeId);
 }

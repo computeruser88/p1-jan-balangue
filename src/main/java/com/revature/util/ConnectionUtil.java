@@ -27,6 +27,7 @@ public class ConnectionUtil {
 		String url = prop.getProperty("url");
 		String username = prop.getProperty("username");
 		String password = prop.getProperty("password");
+//		System.out.println(url + "  " + username + " " + password);
 		if(connection == null || connection.isClosed()) {
 			connection = DriverManager.getConnection(url, username, password);
 		}

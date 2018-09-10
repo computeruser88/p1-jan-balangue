@@ -51,4 +51,54 @@
     <servlet-name>ManagerServlet</servlet-name>
     <url-pattern>/manager</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AllRequestsServlet</display-name>
+    <servlet-name>AllRequestsServlet</servlet-name>
+    <servlet-class>com.revature.servlets.AllRequestsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AllRequestsServlet</servlet-name>
+    <url-pattern>/all-requests</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PendingRequestsServlet</display-name>
+    <servlet-name>PendingRequestsServlet</servlet-name>
+    <servlet-class>com.revature.servlets.PendingRequestsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PendingRequestsServlet</servlet-name>
+    <url-pattern>/pending-requests</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ResolvedRequestsServlet</display-name>
+    <servlet-name>ResolvedRequestsServlet</servlet-name>
+    <servlet-class>com.revature.servlets.ResolvedRequestsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResolvedRequestsServlet</servlet-name>
+    <url-pattern>/resolved-requests</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SubmitRequestServlet</display-name>
+    <servlet-name>SubmitRequestServlet</servlet-name>
+    <servlet-class>com.revature.servlets.SubmitRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SubmitRequestServlet</servlet-name>
+    <url-pattern>/submit-request</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateProfileServlet</display-name>
+    <servlet-name>UpdateProfileServlet</servlet-name>
+    <servlet-class>com.revature.servlets.UpdateProfileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateProfileServlet</servlet-name>
+    <url-pattern>/update-profile</url-pattern>
+  </servlet-mapping>
 </web-app>

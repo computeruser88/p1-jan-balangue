@@ -10,6 +10,14 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
 	 crossorigin="anonymous">
+	<style>
+		.jumbotron {
+    		background-image: url('https://freedesignfile.com/upload/2017/02/Abstract-blue-background-with-line-vector-illustration.jpg');
+    		background-repeat: no-repeat;
+    		background-size: 100%;
+    		background-position-y: center;
+		}	
+	 </style>
 </head>
 
 <body>
@@ -20,12 +28,12 @@
 			<hr class="my-2">
 		</div>
 	</div>
-	<div class="container">
+	<div class="container container-fluid">
 		<form action="login" method="POST" class="form-inline">
 			<label>Username:</label>
-			<input type="text" name="username" class="form-control"><hr>
+			<input type="text" name="username" class="form-control">
 			<label>Password:</label>
-			<input type="password" name="password" class="form-control"><hr>
+			<input type="password" name="password" class="form-control">
 			<input type="submit" class="btn btn-primary btn-md" value="login">
 		</form>
 	</div>

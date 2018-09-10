@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class Request {
 	
+	private int requestId;
 	private BigDecimal amount;
 	private String reason;
 	private int employeeId;
@@ -29,9 +30,20 @@ public class Request {
 		this.reason = reason;
 		this.employeeId = employeeId;
 	}
+	
+	public Request(int requestId2, BigDecimal amount2, String reason2, int employeeId2) {
+		this.requestId = requestId2;
+		this.amount = amount2;
+		this.reason = reason2;
+		this.employeeId = employeeId2;
+	}
+
+	public int getRequestId() {
+		return this.requestId;
+	}
 
 	public BigDecimal getAmount() {
-		return amount;
+		return this.amount;
 	}
 
 	public void setAmount(BigDecimal amount) {
@@ -39,7 +51,7 @@ public class Request {
 	}
 
 	public String getReason() {
-		return reason;
+		return this.reason;
 	}
 
 	public void setReason(String reason) {
@@ -47,7 +59,7 @@ public class Request {
 	}
 
 	public int getEmployeeId() {
-		return employeeId;
+		return this.employeeId;
 	}
 
 	public void setEmployeeId(int employeeId) {
@@ -55,7 +67,7 @@ public class Request {
 	}
 
 	public int getManagerId() {
-		return managerId;
+		return this.managerId;
 	}
 
 	public void setManagerId(int managerId) {
@@ -63,7 +75,7 @@ public class Request {
 	}
 
 	public String getApproved() {
-		return approved;
+		return this.approved;
 	}
 
 	public void setApproved(String approved) {
