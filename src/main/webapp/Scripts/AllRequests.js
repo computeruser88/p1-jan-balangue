@@ -51,6 +51,38 @@ function populateRequests(xhr) {
 	document.getElementById("employeeResult").append(requestTable);
 }
 
+function enterRequest() {
+	let requestForm = document.createElement("form");
+	requestForm.setAttribute("action", "POST");
+	let formDiv = document.createElement("div");
+	formDiv.classList.add("form-group");
+	let amountLabel = document.createElement("label");
+	amountLabel.innerHTML = "Enter requested reimbursement amount:";
+	let amountInput = document.createElement("input");
+	amountInput.type = "number";
+	amountInput.classList.add("form-control");
+	amountInput.setAttribute("name", "amount");
+	formDiv.appendChild(amountLabel);
+	formDiv.appendChild(amountInput);
+	let reasonLabel = document.createElement("label");
+	reasonLabel.innerHTML = "Enter reason for reimbursement:"
+	let reasonInput = document.createElement("input");
+	reasonInput.type = "textarea";
+	reasonInput.classList.add("form-control");
+	reasonInput.setAttribute("name", "reason");
+	formDiv.appendChild(reasonLabel);
+	formDiv.appendChild(reasonInput);
+	let submitButton = document.createElement("input");
+	submitButton.type = "submit";
+	submitButton.value = "Submit request!";
+	formDiv.appendChild(submitButton);
+	requestForm.appendChild(formDiv);
+	document.getElementById("employeeResult").innerHTML = "";
+	document.getElementById("employeeResult").append(requestForm);
+	
+}
+
 window.onload = function() {
 	document.getElementById("viewRequestLink").addEventListener('click', sendAjaxGet(baseUrl, populateRequests));
+	document.getElementById("submitRequestLink").addEventListener('click', enterRequest);
 }

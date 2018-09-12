@@ -41,6 +41,7 @@ public class LoginServlet extends HttpServlet {
 		String pass = request.getParameter("password");
 		
 		HttpSession session = request.getSession();
+		session.getAttribute(user);
 		// code to check if username and password are valid
 		EmployeeDao edi = new EmployeeDaoImpl();
 		int employeeId = edi.validateEmployee(user, pass);

@@ -3,11 +3,11 @@ let pendingUrl = "http://localhost:8082//p1-jan-balangue//pending-requests";
 let resolvedUrl = "http://localhost:8082//p1-jan-balangue//resolved-requests";
 
 
-function sendAjaxGet(url, func) {
+function sendAjaxGet(url, func, event) {
     let xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.HTTPRequest");
     xhr.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            func(this);
+            func(this, event);
         }
     }
     xhr.open("GET", url);
@@ -60,9 +60,10 @@ function populateEmployees(xhr) {
     //	console.log(employeeTable);
     document.getElementById("managerResult").innerHTML = '';
     document.getElementById("managerResult").append(newDiv);
+    event.stopImmediatePropagation();
 }
 
-function populatePendingRequests(xhr) {
+function populatePendingRequests(xhr,event) {
     console.log("pending requests firing");
     let response = JSON.parse(xhr.responseText);
     let newDiv2 = document.createElement("div");
@@ -88,18 +89,19 @@ function populatePendingRequests(xhr) {
         let managerId = document.createElement("td");
         managerId.innerHTML = response[i].managerId;
         let approved = document.createElement("td");
-        let approve = document.createElement("button");
-        approve.classList.add("btn");
-        approve.classList.add("btn-success");
-        approve.innerHTML = "APPROVE";
-        approve.id = `approve ${i}`;
-        let deny = document.createElement("button");
-        deny.classList.add("btn");
-        deny.classList.add("btn-danger");
-        deny.innerHTML = "DENY";
-        deny.id = `deny ${i}`;
-        approved.append(approve);
-        approved.append(deny);
+        approved = response[i].approved;
+        // let approve = document.createElement("button");
+        // approve.classList.add("btn");
+        // approve.classList.add("btn-success");
+        // approve.innerHTML = "APPROVE";
+        // approve.id = `approve ${i}`;
+        // let deny = document.createElement("button");
+        // deny.classList.add("btn");
+        // deny.classList.add("btn-danger");
+        // deny.innerHTML = "DENY";
+        // deny.id = `deny ${i}`;
+        // approved.append(approve);
+        // approved.append(deny);
         row.appendChild(requestId);
         row.appendChild(amount);
         row.appendChild(reason);
@@ -112,11 +114,12 @@ function populatePendingRequests(xhr) {
     newDiv2.append(requestTable);
     document.getElementById("managerResult").innerHTML = '';
     document.getElementById("managerResult").append(newDiv2);
+    event.stopImmediatePropagation();
 }
 
-function populateResolvedRequests(xhr) {
+function populateResolvedRequests(xhr, event) {
     console.log("resolved firing");
-    console.log(xhr.responseText);
+    let response = JSON.parse(xhr.responseText);
     let newDiv2 = document.createElement("div");
     let requestTable = document.createElement("table");
     requestTable.classList.add("table");
@@ -153,27 +156,14 @@ function populateResolvedRequests(xhr) {
     newDiv2.append(requestTable);
     document.getElementById("managerResult").innerHTML = '';
     document.getElementById("managerResult").append(newDiv2);
+    event.stopImmediatePropagation();
 }
 
-//function sendAjaxPost(url, func) {
-//    let xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.HTTPRequest");
-//    let params = "";
-//    xhr.open('POST', url, true);
-//
-//    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-//
-//    xhr.onreadystatechange = function () {
-//        if (xhr.readyState == 4 && xhr.status == 200) {
-//            func(this);
-//        }
-//    }
-//    xhr.send(params);
-//}
 
 window.onload = function () {
-    document.getElementById("viewEmployeesLink").addEventListener('click', sendAjaxGet(baseUrl, populateEmployees));
-    document.getElementById("pendingRequestsLink").addEventListener('click', sendAjaxGet(pendingUrl, populatePendingRequests));
-    document.getElementById("resolvedRequestsLink").addEventListener('click', sendAjaxGet(resolvedUrl, populateResolvedRequests));
+    document.getElementById("viewEmployeesLink").addEventListener('click', sendAjaxGet(baseUrl, populateEmployees, event));
+    document.getElementById("pendingRequestsLink").addEventListener('click', sendAjaxGet(pendingUrl, populatePendingRequests, event));
+    document.getElementById("resolvedRequestsLink").addEventListener('click', sendAjaxGet(resolvedUrl, populateResolvedRequests, event));
     // document.getElementsByClassName("btn btn-success").addEventListener('click', sendAjaxPost(pendingUrl, approve));
     // document.getElementsByClassName("btn btn-danger").addEventListener('click', sendAjaxPost(pendingUrl, deny));
 }

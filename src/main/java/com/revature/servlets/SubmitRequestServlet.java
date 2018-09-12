@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class SubmitRequestServlet
@@ -31,9 +32,15 @@ public class SubmitRequestServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String amount = request.getParameter("amount");
+			String reason = request.getParameter("reason");
+
+			console.log(amount + " " + reason);
+			RequestDao rdi = new RequestDaoImpl();
+			Request request = new Request(amount, reason);
+			rdi.createRequest(request);
+			
+		}
 
 }
