@@ -1,17 +1,19 @@
 let baseUrl = "http://localhost:8082//p1-jan-balangue//all-employees";
 let pendingUrl = "http://localhost:8082//p1-jan-balangue//pending-requests";
 let resolvedUrl = "http://localhost:8082//p1-jan-balangue//resolved-requests";
+let xhrQueue = [];
 
-
-function sendAjaxGet(url, func, event) {
-    let xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.HTTPRequest");
-    xhr.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            func(this, event);
+function sendAjaxGet(url, func) {
+    let xhr = new XMLHttpRequest();
+    xhrQueue.push(xhr);
+    let currentXhr = xhrQueue.shift();
+    currentXhr.onreadystatechange = function () {
+        if (currentXhr.readyState === 4 && currentXhr.status === 200) {
+        	func(currentXhr);
         }
     }
-    xhr.open("GET", url);
-    xhr.send();
+    currentXhr.open("GET", url);
+    currentXhr.send();
 }
 
 function populateEmployees(xhr) {
@@ -58,12 +60,10 @@ function populateEmployees(xhr) {
     employeeTable.appendChild(tableBody);
     newDiv.append(employeeTable);
     //	console.log(employeeTable);
-    document.getElementById("managerResult").innerHTML = '';
     document.getElementById("managerResult").append(newDiv);
-    event.stopImmediatePropagation();
 }
 
-function populatePendingRequests(xhr,event) {
+function populatePendingRequests(xhr) {
     console.log("pending requests firing");
     let response = JSON.parse(xhr.responseText);
     let newDiv2 = document.createElement("div");
@@ -79,6 +79,7 @@ function populatePendingRequests(xhr,event) {
     }
     let tableBody = document.createElement("tbody");
     for (let i = 0; i < response.length; i++) {
+    	console.log(response[i]);
         let row = document.createElement("tr");
         let requestId = document.createElement("td");
         requestId.innerHTML = response[i].requestId;
@@ -89,7 +90,7 @@ function populatePendingRequests(xhr,event) {
         let managerId = document.createElement("td");
         managerId.innerHTML = response[i].managerId;
         let approved = document.createElement("td");
-        approved = response[i].approved;
+        approved.innerHTML = response[i].approved;
         // let approve = document.createElement("button");
         // approve.classList.add("btn");
         // approve.classList.add("btn-success");
@@ -112,12 +113,10 @@ function populatePendingRequests(xhr,event) {
     requestTable.appendChild(header);
     requestTable.appendChild(tableBody);
     newDiv2.append(requestTable);
-    document.getElementById("managerResult").innerHTML = '';
     document.getElementById("managerResult").append(newDiv2);
-    event.stopImmediatePropagation();
 }
 
-function populateResolvedRequests(xhr, event) {
+function populateResolvedRequests(xhr) {
     console.log("resolved firing");
     let response = JSON.parse(xhr.responseText);
     let newDiv2 = document.createElement("div");
@@ -154,16 +153,81 @@ function populateResolvedRequests(xhr, event) {
     requestTable.appendChild(header);
     requestTable.appendChild(tableBody);
     newDiv2.append(requestTable);
-    document.getElementById("managerResult").innerHTML = '';
     document.getElementById("managerResult").append(newDiv2);
-    event.stopImmediatePropagation();
+
 }
 
+function displayForm() {
+	let requestForm = document.createElement("form");
+	requestForm.setAttribute("action", "POST");
+	let formDiv = document.createElement("div");
+	formDiv.classList.add("form-group");
+	let amountLabel = document.createElement("label");
+	amountLabel.innerHTML = "Enter request ID:";
+	let amountInput = document.createElement("input");
+	amountInput.type = "number";
+	amountInput.classList.add("form-control");
+	amountInput.setAttribute("name", "requestId");
+	formDiv.appendChild(amountLabel);
+	formDiv.appendChild(amountInput);
+	let reasonLabel = document.createElement("label");
+	reasonLabel.innerHTML = "Enter approval (yes or no):"
+	let reasonInput = document.createElement("input");
+	reasonInput.type = "text";
+	reasonInput.classList.add("form-control");
+	reasonInput.setAttribute("name", "approval");
+	formDiv.appendChild(reasonLabel);
+	formDiv.appendChild(reasonInput);
+	let submitButton = document.createElement("input");
+	submitButton.type = "submit";
+	submitButton.value = "Submit request!";
+	formDiv.appendChild(submitButton);
+	requestForm.appendChild(formDiv);
+	document.getElementById("managerResult").append(requestForm);
 
-window.onload = function () {
-    document.getElementById("viewEmployeesLink").addEventListener('click', sendAjaxGet(baseUrl, populateEmployees, event));
-    document.getElementById("pendingRequestsLink").addEventListener('click', sendAjaxGet(pendingUrl, populatePendingRequests, event));
-    document.getElementById("resolvedRequestsLink").addEventListener('click', sendAjaxGet(resolvedUrl, populateResolvedRequests, event));
-    // document.getElementsByClassName("btn btn-success").addEventListener('click', sendAjaxPost(pendingUrl, approve));
-    // document.getElementsByClassName("btn btn-danger").addEventListener('click', sendAjaxPost(pendingUrl, deny));
 }
+function viewAllEmployees() {
+//	event.target.removeEventListener(event.type, arguments.callee);
+	sendAjaxGet(baseUrl, populateEmployees);
+}
+
+function processPendingRequests() {
+//	event.target.removeEventListener(event.type, arguments.callee);
+	sendAjaxGet(pendingUrl, populatePendingRequests);
+}
+
+function processResolvedRequests() {
+//	event.target.removeEventListener(event.type, arguments.callee);
+	sendAjaxGet(resolvedUrl, populateResolvedRequests);
+}
+
+function processRequestResolution() {
+//	event.target.removeEventListener(event.type, arguments.callee);
+	displayForm();
+}
+
+//document.getElementById("viewEmployeesLink").onclick = function () {
+//	return viewAllEmployees();
+//};
+//
+//document.getElementById("pendingRequestsLink").onclick = function () {
+//	return processPendingRequests();
+//};
+//document.getElementById("resolvedRequestsLink").onclick = function () {
+//	return processResolvedRequests();
+//};
+document.getElementById("requestResolutionLink").addEventListener('click', sendAjaxGet(baseUrl, populateEmployees));
+document.getElementById("pendingRequestsLink").addEventListener('click', sendAjaxGet(pendingUrl, populatePendingRequests));
+document.getElementById("resolvedRequestsLink").addEventListener('click', sendAjaxGet(resolvedUrl, populateResolvedRequests));
+document.getElementById("requestResolutionLink").addEventListener('click', displayForm());
+
+
+
+//window.onload = function () {
+////    document.getElementById("viewEmployeesLink").removeEventListener('click', sendAjaxGet(baseUrl, populateEmployees, false));
+////    document.getElementById("pendingRequestsLink").removeEventListener('click', sendAjaxGet(pendingUrl, populatePendingRequests, false));
+////    document.getElementById("resolvedRequestsLink").removeEventListener('click', sendAjaxGet(resolvedUrl, populateResolvedRequests, false));
+////    document.getElementById("resolvedRequestsLink").removeEventListener('click', sendAjaxGet(resolvedUrl, populateResolvedRequests, false));
+// 
+//
+//}

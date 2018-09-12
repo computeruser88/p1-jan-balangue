@@ -43,7 +43,7 @@ public class AllRequestsServlet extends HttpServlet {
 
 		response.setContentType("application/json;charset=UTF-8");
 		mapper.writeValue(response.getOutputStream(), allRequests);
-		request.getRequestDispatcher("AllRequests.html").forward(request, response);
+	
 	}
 
 	/**

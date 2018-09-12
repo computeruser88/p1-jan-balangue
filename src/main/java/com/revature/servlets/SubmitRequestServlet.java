@@ -33,6 +33,7 @@ public class SubmitRequestServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
 			String amount = request.getParameter("amount");
 			String reason = request.getParameter("reason");
 

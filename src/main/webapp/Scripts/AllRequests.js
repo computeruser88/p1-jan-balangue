@@ -79,10 +79,9 @@ function enterRequest() {
 	requestForm.appendChild(formDiv);
 	document.getElementById("employeeResult").innerHTML = "";
 	document.getElementById("employeeResult").append(requestForm);
-	
 }
 
 window.onload = function() {
-	document.getElementById("viewRequestLink").addEventListener('click', sendAjaxGet(baseUrl, populateRequests));
-	document.getElementById("submitRequestLink").addEventListener('click', enterRequest);
+	document.getElementById("viewRequestLink").addEventListener('click', sendAjaxGet(baseUrl, populateRequests, {once: true}));
+	document.getElementById("submitRequestLink").addEventListener('click', enterRequest, {once: true});
 }

@@ -65,10 +65,11 @@ public class RequestDaoImpl implements RequestDao {
 			rs = s.executeQuery(sql);
 			
 			while (rs.next()) {
+				int requestId = rs.getInt("REQ_ID");
 				BigDecimal amount = rs.getBigDecimal("AMOUNT");
 				String reason = rs.getString("REASON");
 				int employeeId = rs.getInt("EMP_ID");
-				Request request = new Request(amount, reason, employeeId);
+				Request request = new Request(requestId, amount, reason, employeeId);
 				pendingRequests.add(request);
 			}
 		} catch (IOException|SQLException e) {

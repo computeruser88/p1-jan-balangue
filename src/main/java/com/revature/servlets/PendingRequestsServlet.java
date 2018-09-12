@@ -41,7 +41,7 @@ public class PendingRequestsServlet extends HttpServlet {
 
 		response.setContentType("application/json;charset=UTF-8");
 		mapper.writeValue(response.getOutputStream(), allRequests);
-		request.getRequestDispatcher("ResolvedRequests.html").forward(request, response);
+		
 	}
 
 	/**

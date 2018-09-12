@@ -15,6 +15,16 @@ public class Request {
 		super();
 	}
 
+	public Request(int requestId, BigDecimal amount, String reason, int employeeId, int managerId, String approved) {
+		super();
+		this.requestId = requestId;
+		this.amount = amount;
+		this.reason = reason;
+		this.employeeId = employeeId;
+		this.managerId = managerId;
+		this.approved = approved;
+	}
+
 	public Request(BigDecimal amount, String reason, int employeeId, int managerId, String approved) {
 		super();
 		this.amount = amount;

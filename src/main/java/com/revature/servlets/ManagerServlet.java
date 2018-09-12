@@ -1,6 +1,8 @@
 package com.revature.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +26,7 @@ public class ManagerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		request.getRequestDispatcher("Views/Manager.html").forward(request, response);
+		request.getRequestDispatcher("Views/Manager.html").forward(request, response);;
 	}
 
 	/**
