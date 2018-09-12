@@ -44,7 +44,7 @@ public class AllEmployeesServlet extends HttpServlet {
 
 		response.setContentType("application/json;charset=UTF-8");
 		mapper.writeValue(response.getOutputStream(), allEmployees);
-		request.getRequestDispatcher("Views/AllEmployees.html").forward(request, response);
+		request.getRequestDispatcher("Views/Manager.html").forward(request, response);
 	}
 
 	/**

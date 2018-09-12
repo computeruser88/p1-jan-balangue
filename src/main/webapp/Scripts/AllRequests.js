@@ -3,9 +3,6 @@ let baseUrl = "http://localhost:8082//p1-jan-balangue//all-requests";
 
 
 function sendAjaxGet(url, func) {
-	if(xhr !== null) {
-        xhr.abort();
-    }
 	let xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.HTTPRequest");
 	xhr.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
@@ -55,8 +52,5 @@ function populateRequests(xhr) {
 }
 
 window.onload = function() {
-	if(xhr !== null) {
-        xhr.abort();
-    }
 	document.getElementById("viewRequestLink").addEventListener('click', sendAjaxGet(baseUrl, populateRequests));
 }
