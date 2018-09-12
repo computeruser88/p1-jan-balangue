@@ -116,7 +116,7 @@ function populatePendingRequests(xhr) {
 
 function populateResolvedRequests(xhr) {
     console.log("resolved firing");
-    let response = JSON.parse(xhr.responseText);
+    console.log(xhr.responseText);
     let newDiv2 = document.createElement("div");
     let requestTable = document.createElement("table");
     requestTable.classList.add("table");
@@ -155,20 +155,20 @@ function populateResolvedRequests(xhr) {
     document.getElementById("managerResult").append(newDiv2);
 }
 
-function sendAjaxPost(url, func) {
-    let xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.HTTPRequest");
-    let params = "";
-    xhr.open('POST', url, true);
-
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            func(this);
-        }
-    }
-    xhr.send(params);
-}
+//function sendAjaxPost(url, func) {
+//    let xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.HTTPRequest");
+//    let params = "";
+//    xhr.open('POST', url, true);
+//
+//    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+//
+//    xhr.onreadystatechange = function () {
+//        if (xhr.readyState == 4 && xhr.status == 200) {
+//            func(this);
+//        }
+//    }
+//    xhr.send(params);
+//}
 
 window.onload = function () {
     document.getElementById("viewEmployeesLink").addEventListener('click', sendAjaxGet(baseUrl, populateEmployees));
