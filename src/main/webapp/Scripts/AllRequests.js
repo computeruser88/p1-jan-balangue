@@ -1,8 +1,11 @@
 let baseUrl = "http://localhost:8082//p1-jan-balangue//all-requests";
 
-document.getElementById("viewRequestLink").addEventListener("click", sendAjaxGet(baseUrl, populateRequests));
+
 
 function sendAjaxGet(url, func) {
+	if(xhr !== null) {
+        xhr.abort();
+    }
 	let xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.HTTPRequest");
 	xhr.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
@@ -17,7 +20,7 @@ function populateRequests(xhr) {
 	let response = JSON.parse(xhr.responseText);
 	let requestTable = document.createElement("table");
 	requestTable.classList.add("table");
-	requestTable.classList.add("table-dark");
+	requestTable.classList.add("table-primary");
 	let header = document.createElement("thead");
 	let heading = ["Request ID", "Amount", "Reason", "Manager ID", "Approved"];
 	for (let i = 0; i < heading.length; i++) {
@@ -31,7 +34,7 @@ function populateRequests(xhr) {
 		let requestId = document.createElement("td");
 		requestId.innerHTML = response[i].requestId;
 		let amount = document.createElement("td");
-		amount.innerHTML = response[i].amount;
+		amount.innerHTML = parseFloat(response[i].amount).toFixed(2);
 		let reason = document.createElement("td");
 		reason.innerHTML = response[i].reason;
 		let managerId = document.createElement("td");
@@ -47,5 +50,13 @@ function populateRequests(xhr) {
 	}
 	requestTable.appendChild(header);
 	requestTable.appendChild(tableBody);
-	document.getElementById("employeeResult").innerHTML = requestTable;
+	console.log(requestTable);
+	document.getElementById("employeeResult").append(requestTable);
+}
+
+window.onload = function() {
+	if(xhr !== null) {
+        xhr.abort();
+    }
+	document.getElementById("viewRequestLink").addEventListener('click', sendAjaxGet(baseUrl, populateRequests));
 }

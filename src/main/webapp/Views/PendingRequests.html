@@ -21,23 +21,21 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-md navbar-light bg-primary">
+  <nav class="navbar navbar-expand-md navbar-light bg-primary" id="navbar">
     <a class="navbar-brand" href="#">Revature ERS - Administrative View</a>
     <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
       aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
-          <a class="nav-link" href="">Home<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="manager">Home<span class="sr-only">(current)</span></a>
+        </li>
+  
+        <li class="nav-item">
+          <a class="nav-link" href="pending-requests" id="pendingRequestsLink">Pending requests</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="" id="viewEmployeesLink">Employees</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="" id="pendingRequestsLink">Pending requests</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="" id="resolvedRequestsLink">Resolved</a>
+          <a class="nav-link" href="resolved-requests" id="resolvedRequestsLink">Resolved</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="logout">Log out</a>
@@ -54,7 +52,7 @@
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
     crossorigin="anonymous"></script>
-    <script src="Scripts/AllEmployees.js"></script>
+    <script src="Scripts/PendingRequests.js"></script>
 </body>
 
 </html>
